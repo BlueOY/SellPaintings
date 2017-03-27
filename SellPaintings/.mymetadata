@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SellPaintings"
+  id="myeclipse.1489649520318"
+  context-root="/SellPaintings"
+  j2ee-spec="6.0"
+  archive="SellPaintings.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

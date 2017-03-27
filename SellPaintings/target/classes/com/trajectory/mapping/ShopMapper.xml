@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trajectory.dao.IShopDao">
+
+	<select id="selectPaintings" parameterType="HashMap" resultType="com.trajectory.pojo.Painting">
+		select * from paintings limit ${startIndex}, ${endIndex}
+	</select>
+	
+	<select id="selectPaintingDetail" parameterType="int" resultType="com.trajectory.pojo.Painting">
+		select * from paintings where id=#{id}
+	</select>
+	
+	<insert id="insertOrder" parameterType="com.trajectory.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `order` (distributionMode,paymentMode,payState,user,address,remarks,totalPrice,createTime,state) 
+		VALUES (#{distributionMode},#{paymentMode},#{payState},#{user},#{address},#{remarks},#{totalPrice},now(),#{state})
+	</insert>
+	
+	<insert id="insertOrderPaintings" parameterType="java.util.List" >  
+	    insert into orderPaintings (orderId, paintingId) 
+	    values 
+	    <foreach collection="list" item="item" index="index" separator="," >
+	        (#{item.orderId}, #{item.paintingId})
+	    </foreach>
+	</insert>
+	
+	<resultMap id="orderResultMap" type="com.trajectory.pojo.Order">
+        <id property="id" column="id" javaType="int" jdbcType="INTEGER" />
+        <result property="distributionMode" column="distributionMode" javaType="string" jdbcType="VARCHAR"/>
+        <result property="paymentMode" column="paymentMode" javaType="string" jdbcType="VARCHAR"/>
+        <result property="payState" column="payState" javaType="string" jdbcType="VARCHAR"/>
+        <result property="user" column="user" javaType="string" jdbcType="VARCHAR"/>
+        <result property="address" column="address" javaType="string" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" javaType="string" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="totalPrice" javaType="int" jdbcType="INTEGER"/>
+        <result property="createTime" column="createTime" javaType="string" jdbcType="VARCHAR"/>
+        <result property="state" column="state" javaType="string" jdbcType="VARCHAR"/>
+        <collection property="paintings" column="orderId" ofType="com.trajectory.pojo.Painting">
+            <id property="id" column="pid" javaType="int" jdbcType="INTEGER"/>
+            <result property="title" column="title" javaType="string" jdbcType="VARCHAR"/>
+            <result property="descript" column="descript" javaType="string" jdbcType="VARCHAR"/>
+            <result property="author" column="author" javaType="string" jdbcType="VARCHAR"/>
+            <result property="paintingTime" column="paintingTime" javaType="string" jdbcType="VARCHAR"/>
+            <result property="uploadingTime" column="uploadingTime" javaType="string" jdbcType="VARCHAR"/>
+            <result property="originalPrice" column="originalPrice" javaType="float" jdbcType="DECIMAL"/>
+            <result property="discountPrice" column="discountPrice" javaType="float" jdbcType="DECIMAL"/>
+            <result property="imageUrl" column="imageUrl" javaType="string" jdbcType="VARCHAR"/>
+            <result property="state" column="state" javaType="string" jdbcType="VARCHAR"/>
+        </collection>
+     </resultMap>
+	
+	<select id="selectOrders" parameterType="HashMap" resultType="com.trajectory.pojo.Order" resultMap="orderResultMap">
+		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId limit ${startIndex}, ${endIndex}
+	</select>
+
+</mapper>
