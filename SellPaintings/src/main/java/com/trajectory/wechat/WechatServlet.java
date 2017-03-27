@@ -22,7 +22,7 @@ public class WechatServlet extends HttpServlet {
         String signature = request.getParameter("signature");
         String timestamp = request.getParameter("timestamp");
         String nonce = request.getParameter("nonce");
-        String echostr = request.getParameter("echoStr");
+        String echostr = request.getParameter("echostr");
         System.out.println("echostr="+echostr);
          
         PrintWriter out = response.getWriter();
