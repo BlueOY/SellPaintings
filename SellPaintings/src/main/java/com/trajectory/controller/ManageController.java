@@ -2,6 +2,8 @@ package com.trajectory.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,8 @@ public class ManageController {
 		if(username!=null && password!=null){
 			if(username.endsWith("admin")){
 				if(password.endsWith("admin")){
+					Map<String, String> user = new HashMap<String, String>();
+					request.getSession().setAttribute("userSession", user);
 					out.write("true");
 				}else{
 					out.write("ÊäÈëµÄÃÜÂëÓĞÎó");
