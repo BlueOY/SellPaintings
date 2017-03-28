@@ -193,12 +193,6 @@
 		    <artifactId>httpclient</artifactId>
 		    <version>4.3.6</version>
 		</dependency>
-		<!-- org.json/json -->
-		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20141113</version>
-		</dependency>
 
     </dependencies>
   
