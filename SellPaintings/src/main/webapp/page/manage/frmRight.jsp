@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/icon.css">
 <style type="text/css">
 	body{
-		background: blue;
+		background: white;
 	}
 </style>
 </head>

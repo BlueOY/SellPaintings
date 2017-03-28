@@ -46,6 +46,11 @@ public class ManageController {
 		}
 	}
 	
+	@RequestMapping("/getPaintings")
+	public void getPaintings(HttpServletRequest request){
+		
+	}
+	
 	@RequestMapping("/addPaintings")
 	public void addPaintings(HttpServletRequest request){
 		Painting painting = new Painting();
