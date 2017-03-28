@@ -11,19 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
+ * 过滤器
  * 参考资料：http://blog.csdn.net/tolcf/article/details/38535739
+ * 过滤器与拦截器的区别：http://blog.csdn.net/chenleixing/article/details/44573495
+ * 过滤器与拦截器：http://blog.csdn.net/xiaoyaotan_111/article/details/53817918
  */
 
 public class UserSessionFilter extends OncePerRequestFilter{
+	
+	private final boolean DEBUG = true;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		// 不拦截的url
-		String[] notFilter = new String[] {"/index.jsp","selectExiteUser"};
 		// 获取请求的url
 		String url = request.getRequestURI();
+		if(DEBUG){
+			System.out.println("UserSessionFilter："+url);
+			filterChain.doFilter(request, response);
+		}else{
+		// 不拦截的url
+		String[] notFilter = new String[] {"/index.jsp","selectExiteUser"};
 		if (url.indexOf("UniqueduHome") != -1) {
 			boolean doFilter = chek(notFilter, url);
 			if (doFilter) {
@@ -47,6 +56,7 @@ public class UserSessionFilter extends OncePerRequestFilter{
 			}
 		} else {
 			filterChain.doFilter(request, response);
+		}
 		}
 	}
 	

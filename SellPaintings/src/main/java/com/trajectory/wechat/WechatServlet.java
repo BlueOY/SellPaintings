@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *	url:http://222.240.170.247/SellPaintings/wechatServlet.let
+ */
+
 @SuppressWarnings("serial")
 public class WechatServlet extends HttpServlet {
 

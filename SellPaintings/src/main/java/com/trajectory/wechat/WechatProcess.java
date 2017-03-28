@@ -23,7 +23,6 @@ public class WechatProcess {
 	public String processWechatMag(HttpServletRequest request) {
 		/** 解析xml数据 */
 		Map<String, String> map = FormatXmlProcess.xmlToMap(request);
-		System.out.println("map="+map);
 		// 发送方帐号（一个OpenID）
         String fromUserName = map.get("FromUserName");
         // 开发者微信号
@@ -32,6 +31,8 @@ public class WechatProcess {
         String msgType = map.get("MsgType");
         // 消息内容
         String msgContent = map.get("Content");
+        
+        System.out.println("map="+map);
 
 		/** 以文本消息为例，调用图灵机器人api接口，获取回复内容 */
 		String result = "success";	// 默认回复一个"success"
