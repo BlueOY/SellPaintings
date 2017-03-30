@@ -179,6 +179,16 @@
 		<li class="aui-list-item">
 			<div class="aui-list-item-inner">
 				<div class="aui-list-item-title label">
+					联系方式：
+				</div>
+				<div class="aui-list-item-input" style="width: 65%;">
+					<input class="content" id="phone" type="text" placeholder="请输入联系方式">
+				</div>
+			</div>
+		</li>
+		<li class="aui-list-item">
+			<div class="aui-list-item-inner">
+				<div class="aui-list-item-title label">
 					买家留言：
 				</div>
 				<div class="aui-list-item-input" style="width: 65%;">
@@ -257,6 +267,7 @@
 			var distributionMode = $("#distributionMode").text();
 			var paymentMode = $("#paymentMode").text();
 			var address = $("#address").val();
+			var phone = $("#phone").val();
 			var remarks = $("#remarks").val();
 			var totalPrice = <%=totalPrice%>;
 			if(distributionMode=="快递"){
@@ -271,6 +282,7 @@
 				paymentMode: paymentMode,
 				payState: "未付款",
 				address: address,
+				phone: phone,
 				remarks: remarks,
 				totalPrice: totalPrice
 			};

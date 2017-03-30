@@ -1,10 +1,14 @@
 package com.trajectory.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.trajectory.dao.IManageDao;
+import com.trajectory.pojo.Order;
 import com.trajectory.pojo.Painting;
 import com.trajectory.service.IManageService;
 
@@ -17,6 +21,16 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public void addPaintings(Painting painting) {
 		manageDao.insertPaintings(painting);
+	}
+
+	@Override
+	public List<Painting> getPaintings(Map<String, String> params) {
+		return manageDao.selectPaintings(params);
+	}
+
+	@Override
+	public List<Order> getOrders(Map<String, String> params) {
+		return manageDao.selectOrders(params);
 	}
 
 }

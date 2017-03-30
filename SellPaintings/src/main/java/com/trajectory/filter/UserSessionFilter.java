@@ -2,6 +2,7 @@ package com.trajectory.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 过滤器
@@ -28,8 +31,11 @@ public class UserSessionFilter extends OncePerRequestFilter{
 		// 获取请求的url
 		String url = request.getRequestURI();
 		if(DEBUG){
-			System.out.println("UserSessionFilter："+url);
 			filterChain.doFilter(request, response);
+			Map<String, String[]> parameter = request.getParameterMap();
+			String jStr = JSONObject.toJSONString(parameter);
+			
+			System.out.println("UserSessionFilter："+url+"\nparameter="+jStr);
 		}else{
 		// 不拦截的url
 		String[] notFilter = new String[] {"/index.jsp","selectExiteUser"};

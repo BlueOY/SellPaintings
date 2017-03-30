@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="insertOrder" parameterType="com.trajectory.pojo.Order" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO `order` (distributionMode,paymentMode,payState,user,address,remarks,totalPrice,createTime,state) 
-		VALUES (#{distributionMode},#{paymentMode},#{payState},#{user},#{address},#{remarks},#{totalPrice},now(),#{state})
+		INSERT INTO `order` (distributionMode,paymentMode,payState,user,address,phone,remarks,totalPrice,createTime,state) 
+		VALUES (#{distributionMode},#{paymentMode},#{payState},#{user},#{address},#{phone},#{remarks},#{totalPrice},now(),#{state})
 	</insert>
 	
 	<insert id="insertOrderPaintings" parameterType="java.util.List" >  

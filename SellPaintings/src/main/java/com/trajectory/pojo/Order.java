@@ -11,6 +11,7 @@ public class Order {
 	private String payState;
 	private String user;
 	private String address;
+	private String phone;
 	private String remarks;
 	private double totalPrice;
 	private String createTime;
@@ -57,6 +58,12 @@ public class Order {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getRemarks() {
 		return remarks;
