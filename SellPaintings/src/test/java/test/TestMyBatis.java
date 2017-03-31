@@ -36,9 +36,9 @@ public class TestMyBatis {
 	public void test() {
 		System.out.println("test");
 		
-//		test1();
+		test1();
 //		testSelect();
-		testInsert();
+//		testInsert();
 		
 	}
 	
@@ -79,7 +79,7 @@ public class TestMyBatis {
 	}
 	
 	private void test1(){
-		com.trajectory.pojo.Test test = testService.getTestById(1);
+		com.trajectory.pojo.Test test = testService.getTestById("1");
 		System.out.println("test="+JSON.toJSONString(test));
 	}
 

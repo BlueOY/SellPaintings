@@ -249,17 +249,17 @@
 		
 		$("#list").on("click", ".btnDelete", function(){
 			var id = $(this).parents("li").data("id");
-			window.location.href = "/SellPaintings/shop/toShoppingCart?type=delete&id="+id;
+			window.location.href = "<%=path%>/shop/toShoppingCart?type=delete&id="+id;
 			return false;
 		});
 		$("#list").on("click", ".btnDeleteAll", function(){
-			window.location.href = "/SellPaintings/shop/toShoppingCart?type=deleteAll";
+			window.location.href = "<%=path%>/shop/toShoppingCart?type=deleteAll";
 			return false;
 		});
 		
 		$("#list").on("click", ".commodity", function(){
 			var id = $(this).data("id");
-			window.location.href = "/SellPaintings/shop/toPaintingDetail?id="+id;
+			window.location.href = "<%=path%>/shop/toPaintingDetail?id="+id;
 		});
 		
 		$("#submit").on("click", function(){
@@ -287,12 +287,12 @@
 				totalPrice: totalPrice
 			};
 			$.ajax({
-				url: "/SellPaintings/shop/submitOrder",
+				url: "<%=path%>/shop/submitOrder",
 				type: "POST",
 				data: param,
 				success: function(data){
 					if(data=="true"){
-						window.location.href = "/SellPaintings/shop/toOrderList";
+						window.location.href = "<%=path%>/shop/toOrderList";
 					}else{
 						alert(data);
 					}

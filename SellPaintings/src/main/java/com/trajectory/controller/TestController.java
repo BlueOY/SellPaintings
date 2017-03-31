@@ -24,7 +24,7 @@ public class TestController {
 	
 	@RequestMapping("/showTest")
 	public String toIndex(HttpServletRequest request, Model model){
-		int id = Integer.parseInt(request.getParameter("id"));
+		String id = request.getParameter("id");
 		com.trajectory.pojo.Test test = this.testService.getTestById(id);
 		model.addAttribute("test", test);
 		return "jsp/showTest";

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
@@ -83,7 +84,10 @@ public class ManageController {
 	}
 	
 	@RequestMapping("/addPaintings")
-	public void addPaintings(HttpServletRequest request){
+	public void addPaintings(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		Painting painting = new Painting();
 		painting.setTitle(request.getParameter("title"));
 		painting.setDescript(request.getParameter("descript"));
@@ -91,6 +95,36 @@ public class ManageController {
 		painting.setPaintingTime(request.getParameter("paintingTime"));
 		painting.setImageUrl(request.getParameter("imageUrl"));
 		manageService.addPaintings(painting);
+		
+		out.write("true");
+	}
+	
+	@RequestMapping("/toPaintingDetail")
+	public String toPaintingDetail(HttpServletRequest request, Model model){
+		String id = request.getParameter("id");
+		if(id!=null){
+			Painting painting = manageService.selectPaintingDetail(id);
+			model.addAttribute("painting", painting);
+		}else{
+			model.addAttribute("type", "add");
+		}
+		return "manage/painting/paintingDetail";
+	}
+	@RequestMapping("/updatePaintings")
+	public void updatePaintings(HttpServletRequest request, HttpServletResponse response, Painting painting) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		manageService. updatePaintings(painting);
+		out.write("true");
+		
+		System.out.println("painting="+JSON.toJSONString(painting));
+	}
+	
+	public void deletePainting(HttpServletRequest request){
+		String id = request.getParameter("id");
+		if(id!=null){
+			manageService.deletePainting(id);
+		}
 	}
 	
 	@RequestMapping("/getOrders")

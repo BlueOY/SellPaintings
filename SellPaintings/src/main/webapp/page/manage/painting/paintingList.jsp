@@ -34,7 +34,7 @@
 	画作管理
 </div>
 <div>
-	<table id="table" class="easyui-datagrid" title="Basic DataGrid" style="width:100%;height:450px"
+	<table id="table" class="easyui-datagrid" title="画作列表" style="width:100%;height:450px"
 			data-options="rownumbers:true,pagination:true,singleSelect:true,collapsible:true">
 		<thead>
 			<tr>
@@ -44,11 +44,11 @@
 				<th data-options="field:'descript',width:80">描述</th>
 				<th data-options="field:'author',width:60">作者</th>
 				<th data-options="field:'paintingTime',width:150">创作时间</th>
-				<th data-options="field:'uploadingTime',width:150">上传时间</th>
 				<th data-options="field:'originalPrice',width:50">售价</th>
 				<th data-options="field:'discountPrice',width:50">折扣价</th>
 				<th data-options="field:'state',width:80">状态</th>
-				<th data-options="field:'operation',width:120">操作</th>
+				<th data-options="field:'createTime',width:150">上传时间</th>
+				<th data-options="field:'updateTime',width:150">修改时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -60,13 +60,15 @@
 $(function(){
 	//alert("jquery");
 	
-	$("#table").datagrid({"url":"<%=basePath%>manage/getPaintings"});
+	$("#table").datagrid({"url":"<%=path%>/manage/getPaintings"});
 	$("#table").datagrid({"loadFilter":pagerFilter});
+	$("#table").datagrid({"toolbar":toolbar});
 	//$("#table").datagrid("loadData", getData());
 	$("#table").datagrid({
-		onClickRow: function(rowIndex, rowData){
+		onDblClickRow: function(rowIndex, rowData){
 			//alert(rowIndex+" "+JSON.stringify(rowData));
-			window.location.href = "paintingDetail.jsp";
+			//window.location.href = "paintingDetail.jsp";
+			window.location.href = "<%=path%>/manage/toPaintingDetail?id="+rowData.id;
 		}
 	});
 });
@@ -77,23 +79,55 @@ function pagerFilter(data){
 	}
 	return data;
 }
-		function getData(){
-			var rows = [];
-			for(var i=1; i<=800; i++){
-				var amount = Math.floor(Math.random()*1000);
-				var price = Math.floor(Math.random()*1000);
-				rows.push({
-					id: 'Inv No '+i,
-					imageUrl: $.fn.datebox.defaults.formatter(new Date()),
-					title: 'Name '+i,
-					descript: amount,
-					author: price,
-					paintingTime: amount*price,
-					uploadingTime: 'Note '+i
-				});
+var toolbar = [{
+	text:'新增',
+	iconCls:'icon-add',
+	handler:function(){
+		window.location.href = "<%=path%>/manage/toPaintingDetail";
+	}
+},'-',{
+	text:'删除',
+	iconCls:'icon-cut',
+	handler:function(){
+		var selected = $('#table').datagrid('getSelected');
+		if(selected){
+			if(window.confirm("你确定要删除“"+selected.title+"”这幅画作吗？")){
+				alert('cut'+JSON.stringify(selected));
+				
 			}
-			return rows;
+		}else{
+			alert("请先选中一行数据");
 		}
+	}
+},'-',{
+	text:'编辑',
+	iconCls:'icon-save',
+	handler:function(){
+		var selected = $('#table').datagrid('getSelected');
+		if(selected){
+			window.location.href = "<%=path%>/manage/toPaintingDetail?id="+selected.id;
+		}else{
+			alert("请先选中一行数据");
+		}
+	}
+}];
+/* function getData(){
+	var rows = [];
+	for(var i=1; i<=800; i++){
+		var amount = Math.floor(Math.random()*1000);
+		var price = Math.floor(Math.random()*1000);
+		rows.push({
+			id: 'Inv No '+i,
+			imageUrl: $.fn.datebox.defaults.formatter(new Date()),
+			title: 'Name '+i,
+			descript: amount,
+			author: price,
+			paintingTime: amount*price,
+			uploadingTime: 'Note '+i
+		});
+	}
+	return rows;
+} */
 </script>
 </body>
 </html>

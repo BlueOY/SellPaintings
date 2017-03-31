@@ -6,7 +6,7 @@
 		select * from paintings limit ${startIndex}, ${endIndex}
 	</select>
 	
-	<select id="selectPaintingDetail" parameterType="int" resultType="com.trajectory.pojo.Painting">
+	<select id="selectPaintingDetail" parameterType="String" resultType="com.trajectory.pojo.Painting">
 		select * from paintings where id=#{id}
 	</select>
 	
@@ -40,11 +40,12 @@
             <result property="descript" column="descript" javaType="string" jdbcType="VARCHAR"/>
             <result property="author" column="author" javaType="string" jdbcType="VARCHAR"/>
             <result property="paintingTime" column="paintingTime" javaType="string" jdbcType="VARCHAR"/>
-            <result property="uploadingTime" column="uploadingTime" javaType="string" jdbcType="VARCHAR"/>
             <result property="originalPrice" column="originalPrice" javaType="float" jdbcType="DECIMAL"/>
             <result property="discountPrice" column="discountPrice" javaType="float" jdbcType="DECIMAL"/>
             <result property="imageUrl" column="imageUrl" javaType="string" jdbcType="VARCHAR"/>
             <result property="state" column="state" javaType="string" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" javaType="string" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="updateTime" javaType="string" jdbcType="VARCHAR"/>
         </collection>
      </resultMap>
 	

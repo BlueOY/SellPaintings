@@ -15,7 +15,7 @@ public class TestServiceImpl implements ITestService{
 	private ITestDao testDao;
 
 	@Override
-	public Test getTestById(int userId) {
+	public Test getTestById(String userId) {
 		return testDao.selectByPrimaryKey(userId);
 	}
 

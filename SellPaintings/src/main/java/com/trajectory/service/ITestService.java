@@ -4,6 +4,6 @@ import com.trajectory.pojo.Test;
 
 public interface ITestService {
 	
-	public Test getTestById(int userId);
+	public Test getTestById(String userId);
 
 }

@@ -62,12 +62,8 @@ public class ShopController {
 	public String toPaintingDetail(HttpServletRequest request, Model model){
 		String id = request.getParameter("id");
 		if(id!=null){
-			try{
-				Painting painting = shopService.selectPaintingDetail(Integer.parseInt(id));
-				model.addAttribute("painting", painting);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+			Painting painting = shopService.selectPaintingDetail(id);
+			model.addAttribute("painting", painting);
 		}
 		return "shop/detail";
 	}
@@ -78,20 +74,16 @@ public class ShopController {
 		String id = request.getParameter("id");
 		if(type==null || "add".equals(type)){
 			if(id!=null){
-				try{
-					Painting painting = shopService.selectPaintingDetail(Integer.parseInt(id));
-					@SuppressWarnings("unchecked")
-					List<Painting> paintingsList = (List<Painting>)request.getSession().getAttribute("paintingsList");
-					if(paintingsList==null){
-						paintingsList = new ArrayList<Painting>();
-					}
-					if(!ifExist(paintingsList, id)){
-						paintingsList.add(painting);
-					}
-					request.getSession().setAttribute("paintingsList", paintingsList);
-				}catch (Exception e) {
-					e.printStackTrace();
+				Painting painting = shopService.selectPaintingDetail(id);
+				@SuppressWarnings("unchecked")
+				List<Painting> paintingsList = (List<Painting>)request.getSession().getAttribute("paintingsList");
+				if(paintingsList==null){
+					paintingsList = new ArrayList<Painting>();
 				}
+				if(!ifExist(paintingsList, id)){
+					paintingsList.add(painting);
+				}
+				request.getSession().setAttribute("paintingsList", paintingsList);
 			}
 		}else if("delete".equals(type)){
 			if(id!=null){

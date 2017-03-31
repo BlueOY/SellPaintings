@@ -11,5 +11,8 @@ public interface IManageService {
 	public void addPaintings(Painting painting);
 	public List<Painting> getPaintings(Map<String, String> params);
 	public List<Order> getOrders(Map<String, String> params);
+	public void updatePaintings(Painting painting);
+	public Painting selectPaintingDetail(String parseInt);
+	public void deletePainting(String id);
 
 }

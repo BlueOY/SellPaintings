@@ -33,4 +33,19 @@ public class ManageServiceImpl implements IManageService{
 		return manageDao.selectOrders(params);
 	}
 
+	@Override
+	public void updatePaintings(Painting painting) {
+		manageDao.updatePaintings(painting);
+	}
+
+	@Override
+	public Painting selectPaintingDetail(String parseInt) {
+		return manageDao.selectPaintingDetail(parseInt);
+	}
+
+	@Override
+	public void deletePainting(String id) {
+		manageDao.deletePainting();
+	}
+
 }

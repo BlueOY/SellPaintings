@@ -9,7 +9,9 @@ public class Painting implements java.io.Serializable{
 	private String author;
 	
 	private String paintingTime;
-	private String uploadingTime;
+	
+	private String createTime;
+	private String updateTime;
 	
 	private float originalPrice;
 	private float discountPrice;
@@ -48,11 +50,18 @@ public class Painting implements java.io.Serializable{
 	public void setPaintingTime(String paintingTime) {
 		this.paintingTime = paintingTime;
 	}
-	public String getUploadingTime() {
-		return uploadingTime;
+	
+	public String getCreateTime() {
+		return createTime;
 	}
-	public void setUploadingTime(String uploadingTime) {
-		this.uploadingTime = uploadingTime;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
 	}
 	
 	public float getOriginalPrice() {

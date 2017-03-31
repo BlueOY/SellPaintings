@@ -24,7 +24,7 @@ public class ShopServiceImpl implements IShopService{
 	}
 	
 	@Override
-	public Painting selectPaintingDetail(int id) {
+	public Painting selectPaintingDetail(String id) {
 		return shopDao.selectPaintingDetail(id);
 	}
 

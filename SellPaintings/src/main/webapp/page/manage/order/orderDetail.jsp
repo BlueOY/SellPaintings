@@ -14,6 +14,7 @@
 	body{
 		background: white;
 	}
+	/* 标题栏的样式 */
 	.top-bar{
 		position: relative;
 		top: 0;
@@ -39,7 +40,7 @@
 		float:left; margin-left: 15px;
 		background:url('../images/back.png');
 		background-size: 100% 100%;
-		width: 30px; height: 30px;
+		width: 25px; height: 25px;
 		cursor: pointer;
 	}
 </style>

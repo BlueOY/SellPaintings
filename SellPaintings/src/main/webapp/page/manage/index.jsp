@@ -125,13 +125,13 @@ $(function(){
 			password: password
 		};
 		$.ajax({
-			url: "/SellPaintings/manage/login",
+			url: "<%=path%>/manage/login",
 			type: "POST",
 			data: param,
 			success: function(data){
 				if(data=="true"){
 					//window.location.href = "/SellPaintings/manage/toMain";
-					window.location.href = "/SellPaintings/page/manage/main.jsp";
+					window.location.href = "<%=path%>/page/manage/main.jsp";
 				}else{
 					alert(data);
 				}

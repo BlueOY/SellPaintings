@@ -3,9 +3,39 @@
 <mapper namespace="com.trajectory.dao.IManageDao">
 
 	<insert id="insertPaintings" parameterType="com.trajectory.pojo.Painting" >
-		INSERT INTO paintings (title,descript,author,paintingTime,uploadingTime,originalPrice,discountPrice,imageUrl) 
+		INSERT INTO paintings (title,descript,author,paintingTime,createTime,originalPrice,discountPrice,imageUrl) 
 		VALUES (#{title},#{descript},#{author},#{paintingTime},now(),#{originalPrice},#{discountPrice},#{imageUrl})
 	</insert>
+	
+	<select id="selectPaintingDetail" parameterType="String" resultType="com.trajectory.pojo.Painting">
+		select * from paintings where id=#{id}
+	</select>
+	<update id="updatePaintings" parameterType="com.trajectory.pojo.Painting" >
+		UPDATE paintings SET 
+		<if test="title!=null and title!=''">  
+			title=#{title},
+		</if>
+		<if test="descript!=null and descript!=''">  
+			descript=#{descript},
+		</if>
+		<if test="author!=null and author!=''">  
+			author=#{author},
+		</if>
+		<if test="paintingTime!=null and paintingTime!=''">  
+			paintingTime=#{paintingTime},
+		</if>
+		<if test="originalPrice!=null and originalPrice!=''">  
+			originalPrice=#{originalPrice},
+		</if>
+		<if test="discountPrice!=null and discountPrice!=''">  
+			discountPrice=#{discountPrice},
+		</if>
+		<if test="imageUrl!=null and imageUrl!=''">  
+			imageUrl=#{imageUrl},
+		</if>
+		updateTime=now() 
+		WHERE id=#{id}
+	</update>
 	
 	<select id="selectPaintings" parameterType="HashMap" resultType="com.trajectory.pojo.Painting">
 		select * from paintings limit ${startIndex}, ${endIndex}
@@ -28,11 +58,12 @@
             <result property="descript" column="descript" javaType="string" jdbcType="VARCHAR"/>
             <result property="author" column="author" javaType="string" jdbcType="VARCHAR"/>
             <result property="paintingTime" column="paintingTime" javaType="string" jdbcType="VARCHAR"/>
-            <result property="uploadingTime" column="uploadingTime" javaType="string" jdbcType="VARCHAR"/>
             <result property="originalPrice" column="originalPrice" javaType="float" jdbcType="DECIMAL"/>
             <result property="discountPrice" column="discountPrice" javaType="float" jdbcType="DECIMAL"/>
             <result property="imageUrl" column="imageUrl" javaType="string" jdbcType="VARCHAR"/>
             <result property="state" column="state" javaType="string" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" javaType="string" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="updateTime" javaType="string" jdbcType="VARCHAR"/>
         </collection>
      </resultMap>
 	

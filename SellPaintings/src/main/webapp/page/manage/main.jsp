@@ -36,7 +36,8 @@
 		<iframe id="frmLeft" name="frmLeft" src="frmLeft.jsp" border="0" width=100% height='720px' frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no"></iframe>
 	</div>
 	<div id="frmRightBg">
-		<iframe id="frmRight" name="frmRight" src="frmRight.jsp" width=100% height='720px'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe>
+		<!-- <iframe id="frmRight" name="frmRight" src="frmRight.jsp" width=100% height='720px'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe> -->
+		<iframe id="frmRight" name="frmRight" src="painting/paintingList.jsp" width=100% height='720px'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe>
 	</div>
 </div>
 
@@ -44,7 +45,6 @@
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");
-	
 	
 });
 </script>
