@@ -64,7 +64,7 @@
 	<span id="backBtn"></span>
 	<div class="title">画作详情</div>
 </div>
-<div class="container-fluid" style="overflow-y: auto; padding-top: 15px;">
+<div class="container-fluid" style="overflow-y: auto; height:550px; padding-top: 15px; padding-bottom: 35px;">
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">标题</label>

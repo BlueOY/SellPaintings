@@ -8,11 +8,12 @@ import com.trajectory.pojo.Painting;
 
 public interface IManageDao {
 
-	public void insertPaintings(Painting painting);
+	public void insertPainting(Painting painting);
 	public List<Painting> selectPaintings(Map<String, String> params);
 	public List<Order> selectOrders(Map<String, String> params);
-	public void updatePaintings(Painting painting);
+	public void updatePainting(Painting painting);
 	public Painting selectPaintingDetail(String parseInt);
-	public void deletePainting();
+	public void deletePainting(String id);
+	public Order selectOrderDetail(String id);
 
 }

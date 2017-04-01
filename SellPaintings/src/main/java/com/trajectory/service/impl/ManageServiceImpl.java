@@ -19,8 +19,8 @@ public class ManageServiceImpl implements IManageService{
 	private IManageDao manageDao;
 
 	@Override
-	public void addPaintings(Painting painting) {
-		manageDao.insertPaintings(painting);
+	public void addPainting(Painting painting) {
+		manageDao.insertPainting(painting);
 	}
 
 	@Override
@@ -34,8 +34,8 @@ public class ManageServiceImpl implements IManageService{
 	}
 
 	@Override
-	public void updatePaintings(Painting painting) {
-		manageDao.updatePaintings(painting);
+	public void updatePainting(Painting painting) {
+		manageDao.updatePainting(painting);
 	}
 
 	@Override
@@ -45,7 +45,12 @@ public class ManageServiceImpl implements IManageService{
 
 	@Override
 	public void deletePainting(String id) {
-		manageDao.deletePainting();
+		manageDao.deletePainting(id);
+	}
+
+	@Override
+	public Order selectOrderDetail(String id) {
+		return manageDao.selectOrderDetail(id);
 	}
 
 }

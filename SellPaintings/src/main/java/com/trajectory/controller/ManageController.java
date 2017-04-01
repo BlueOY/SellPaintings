@@ -94,7 +94,7 @@ public class ManageController {
 		painting.setAuthor(request.getParameter("author"));
 		painting.setPaintingTime(request.getParameter("paintingTime"));
 		painting.setImageUrl(request.getParameter("imageUrl"));
-		manageService.addPaintings(painting);
+		manageService.addPainting(painting);
 		
 		out.write("true");
 	}
@@ -114,16 +114,21 @@ public class ManageController {
 	public void updatePaintings(HttpServletRequest request, HttpServletResponse response, Painting painting) throws IOException{
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		manageService. updatePaintings(painting);
+		manageService. updatePainting(painting);
 		out.write("true");
 		
 		System.out.println("painting="+JSON.toJSONString(painting));
 	}
-	
-	public void deletePainting(HttpServletRequest request){
+	@RequestMapping("/deletePainting")
+	public void deletePainting(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		String id = request.getParameter("id");
 		if(id!=null){
 			manageService.deletePainting(id);
+			out.write("true");
+		}else{
+			out.write("id²»ÄÜÎª¿Õ");
 		}
 	}
 	
@@ -158,6 +163,18 @@ public class ManageController {
 		out.write(jsonStr);
 		
 		System.out.println("jsonStr="+jsonStr);
+	}
+	
+	@RequestMapping("/toOrderDetail")
+	public String toOrderDetail(HttpServletRequest request, Model model){
+		String id = request.getParameter("id");
+		if(id!=null){
+			Order order = manageService.selectOrderDetail(id);
+			model.addAttribute("order", order);
+			
+			System.out.println("order="+JSON.toJSONString(order));
+		}
+		return "manage/order/orderDetail";
 	}
 
 }

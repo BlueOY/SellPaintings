@@ -34,7 +34,7 @@
 	订单管理
 </div>
 <div>
-	<table id="table" class="easyui-datagrid" title="Basic DataGrid" style="width:100%;height:450px"
+	<table id="table" class="easyui-datagrid" title="Basic DataGrid" style="width:100%;height:500px"
 			data-options="rownumbers:true,pagination:true,singleSelect:true,collapsible:true">
 		<thead>
 			<tr>
@@ -65,9 +65,10 @@ $(function(){
 	$("#table").datagrid({"loadFilter":pagerFilter});
 	//$("#table").datagrid("loadData", getData());
 	$("#table").datagrid({
-		onClickRow: function(rowIndex, rowData){
+		onDblClickRow: function(rowIndex, rowData){
 			//alert(rowIndex+" "+JSON.stringify(rowData));
-			window.location.href = "orderDetail.jsp";
+			//window.location.href = "orderDetail.jsp";
+			window.location.href = "<%=path%>/manage/toOrderDetail?id="+rowData.id;
 		}
 	});
 });

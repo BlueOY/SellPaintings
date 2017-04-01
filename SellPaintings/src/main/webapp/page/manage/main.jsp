@@ -28,16 +28,23 @@
 		float: left;
 		display: inline-block;
 	}
+	#frmLeft{
+		min-height: 600px;
+	}
+	#frmRight{
+		min-height: 600px;
+	}
+	
 </style>
 </head>
 <body>
 <div id="bg">
 	<div id="frmLeftBg">
-		<iframe id="frmLeft" name="frmLeft" src="frmLeft.jsp" border="0" width=100% height='720px' frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no"></iframe>
+		<iframe id="frmLeft" name="frmLeft" src="frmLeft.jsp" border="0" width='100%' height='100%' frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no"></iframe>
 	</div>
 	<div id="frmRightBg">
 		<!-- <iframe id="frmRight" name="frmRight" src="frmRight.jsp" width=100% height='720px'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe> -->
-		<iframe id="frmRight" name="frmRight" src="painting/paintingList.jsp" width=100% height='720px'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe>
+		<iframe id="frmRight" name="frmRight" src="painting/paintingList.jsp" width='100%' height='100%'  border="0" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="no" ></iframe>
 	</div>
 </div>
 

@@ -50,7 +50,9 @@
 	<span id="backBtn"></span>
 	<div class="title">订单详情</div>
 </div>
-
+<div style="overflow-y: auto; height:550px;">
+	<div style="width:30px; height:1300px; background: red;"></div>
+</div>
 <%-- <script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script> --%>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>

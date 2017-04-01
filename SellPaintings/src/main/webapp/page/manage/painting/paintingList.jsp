@@ -34,7 +34,7 @@
 	画作管理
 </div>
 <div>
-	<table id="table" class="easyui-datagrid" title="画作列表" style="width:100%;height:450px"
+	<table id="table" class="easyui-datagrid" title="画作列表" style="width:100%;height:500px"
 			data-options="rownumbers:true,pagination:true,singleSelect:true,collapsible:true">
 		<thead>
 			<tr>
@@ -67,7 +67,6 @@ $(function(){
 	$("#table").datagrid({
 		onDblClickRow: function(rowIndex, rowData){
 			//alert(rowIndex+" "+JSON.stringify(rowData));
-			//window.location.href = "paintingDetail.jsp";
 			window.location.href = "<%=path%>/manage/toPaintingDetail?id="+rowData.id;
 		}
 	});
@@ -92,8 +91,25 @@ var toolbar = [{
 		var selected = $('#table').datagrid('getSelected');
 		if(selected){
 			if(window.confirm("你确定要删除“"+selected.title+"”这幅画作吗？")){
-				alert('cut'+JSON.stringify(selected));
-				
+				//alert('cut'+JSON.stringify(selected));
+				$.ajax({
+					url: "<%=path%>/manage/deletePainting",
+					type: "POST",
+					data: {
+						id: selected.id
+					},
+					success: function(data){
+						if(data=="true"){
+							window.location.reload();
+						}else{
+							alert(data);
+						}
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert("请求失败："+textStatus);
+						alert(errorThrown+" "+XMLHttpRequest.status);
+					}
+				});
 			}
 		}else{
 			alert("请先选中一行数据");

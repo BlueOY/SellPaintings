@@ -138,8 +138,7 @@ $(function(){
 			},
 			error:function(XMLHttpRequest, textStatus, errorThrown){
 				alert("请求失败："+textStatus);
-				alert(errorThrown);
-				alert(XMLHttpRequest.status);
+				alert(errorThrown+" "+XMLHttpRequest.status);
 			}
 		});
 	});
