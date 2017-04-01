@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.trajectory.dao.IManageDao;
 import com.trajectory.pojo.Order;
 import com.trajectory.pojo.Painting;
+import com.trajectory.pojo.User;
 import com.trajectory.service.IManageService;
 
 @Service("manageService")
@@ -32,6 +33,11 @@ public class ManageServiceImpl implements IManageService{
 	public List<Order> getOrders(Map<String, String> params) {
 		return manageDao.selectOrders(params);
 	}
+	@Override
+	public List<Order> getUserOrders(Map<String, String> params) {
+		// TODO Auto-generated method stub
+		return manageDao.selectUserOrders(params);
+	}
 
 	@Override
 	public void updatePainting(Painting painting) {
@@ -51,6 +57,11 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public Order selectOrderDetail(String id) {
 		return manageDao.selectOrderDetail(id);
+	}
+
+	@Override
+	public List<User> selectUsers(Map<String, String> params) {
+		return manageDao.selectUsers(params);
 	}
 
 }

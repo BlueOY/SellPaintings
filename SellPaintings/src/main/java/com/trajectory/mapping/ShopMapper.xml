@@ -50,7 +50,7 @@
      </resultMap>
 	
 	<select id="selectOrders" parameterType="HashMap" resultType="com.trajectory.pojo.Order" resultMap="orderResultMap">
-		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId limit ${startIndex}, ${endIndex}
+		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId and order.user=#{user} limit ${startIndex}, ${endIndex}
 	</select>
 
 </mapper>

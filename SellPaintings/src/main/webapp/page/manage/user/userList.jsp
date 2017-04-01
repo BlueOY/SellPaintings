@@ -9,6 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/icon.css">
 <style type="text/css">
 	body{
 		background: white;
@@ -26,6 +28,34 @@
 <div class="title">
 	用户管理
 </div>
-UserList
+<div>
+	<table id="table" class="easyui-datagrid" title="用户列表" style="width:100%;height:500px"
+			data-options="rownumbers:true,pagination:true,singleSelect:true,collapsible:true">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:60">ID</th>
+				<th data-options="field:'openId',width:60">OpenID</th>
+				<th data-options="field:'createTime',width:150">上传时间</th>
+				<th data-options="field:'visitTime',width:150">访问时间</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>
+<script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//alert("jquery");
+	
+	$("#table").datagrid({"url":"<%=path%>/manage/getUsers"});
+	//$("#table").datagrid("loadData", getData());
+	$("#table").datagrid({
+		onDblClickRow: function(rowIndex, rowData){
+			//alert(rowIndex+" "+JSON.stringify(rowData));
+			window.location.href = "<%=path%>/page/manage/user/userOrders.jsp?openId="+rowData.openId;
+		}
+	});
+});
+</script>
 </body>
 </html>

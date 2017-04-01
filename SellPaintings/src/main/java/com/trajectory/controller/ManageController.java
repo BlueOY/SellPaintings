@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 import com.trajectory.pojo.Order;
 import com.trajectory.pojo.Painting;
+import com.trajectory.pojo.User;
 import com.trajectory.service.IManageService;
 
 @Controller  
@@ -164,6 +165,40 @@ public class ManageController {
 		
 		System.out.println("jsonStr="+jsonStr);
 	}
+	@RequestMapping("/getUserOrders")
+	public void getUserOrders(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int startIndex = 0;
+		String startIndexStr = request.getParameter("startIndex");
+		if(startIndexStr!=null){
+			try{
+				startIndex = Integer.parseInt(startIndexStr);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		int endIndex = startIndex+10;
+		String endIndexStr = request.getParameter("endIndex");
+		if(endIndexStr!=null){
+			try{
+				endIndex = Integer.parseInt(endIndexStr);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		String user = request.getParameter("user");
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("startIndex", startIndex+"");
+		params.put("endIndex", endIndex+"");
+		params.put("user", user);
+		List<Order> list = manageService.getUserOrders(params);
+		String jsonStr = JSON.toJSONString(list);
+		out.write(jsonStr);
+		
+		System.out.println("jsonStr="+jsonStr);
+	}
 	
 	@RequestMapping("/toOrderDetail")
 	public String toOrderDetail(HttpServletRequest request, Model model){
@@ -175,6 +210,37 @@ public class ManageController {
 			System.out.println("order="+JSON.toJSONString(order));
 		}
 		return "manage/order/orderDetail";
+	}
+	
+	@RequestMapping("/getUsers")
+	public void getUsers(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int startIndex = 0;
+		String startIndexStr = request.getParameter("startIndex");
+		if(startIndexStr!=null){
+			try{
+				startIndex = Integer.parseInt(startIndexStr);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		int endIndex = startIndex+10;
+		String endIndexStr = request.getParameter("endIndex");
+		if(endIndexStr!=null){
+			try{
+				endIndex = Integer.parseInt(endIndexStr);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("startIndex", startIndex+"");
+		params.put("endIndex", endIndex+"");
+		List<User> userList = manageService.selectUsers(params);
+		String jsonStr = JSON.toJSONString(userList);
+		out.write(jsonStr);
 	}
 
 }

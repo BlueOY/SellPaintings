@@ -77,9 +77,17 @@
 	<select id="selectOrders" parameterType="HashMap" resultType="com.trajectory.pojo.Order" resultMap="orderResultMap">
 		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId limit ${startIndex}, ${endIndex}
 	</select>
+	<select id="selectUserOrders" parameterType="HashMap" resultType="com.trajectory.pojo.Order" resultMap="orderResultMap">
+		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId and order.user=#{user} limit ${startIndex}, ${endIndex}
+	</select>
 	
 	<select id="selectOrderDetail" parameterType="String" resultType="com.trajectory.pojo.Order" resultMap="orderResultMap">
 		select `order`.*,paintings.*,paintings.id as pid from `order`,paintings,orderPaintings where order.id=#{id} and orderPaintings.orderId = order.id and paintings.id = orderPaintings.paintingId 
+	</select>
+	
+	<select id="selectUsers" parameterType="HashMap" resultType="com.trajectory.pojo.User">
+		select * from user 
+		limit ${startIndex}, ${endIndex}
 	</select>
 
 </mapper>
