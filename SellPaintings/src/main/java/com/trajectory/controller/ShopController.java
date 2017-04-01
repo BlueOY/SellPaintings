@@ -120,6 +120,12 @@ public class ShopController {
 	
 	@RequestMapping("/submitOrder")
 	public void submitOrder(HttpServletRequest request, Order order, PrintWriter out){
+		String userOpenId = (String)request.getSession().getAttribute("openId");
+		if(userOpenId==null){
+			out.write("openId is null");
+			return;
+		}
+		order.setUser(userOpenId);
 		shopService.addOrder(order);
 		String paintingIds = request.getParameter("paintingIds");
 		String[] paintingIdArr = paintingIds.split(",");
@@ -141,6 +147,10 @@ public class ShopController {
 	
 	@RequestMapping("/toOrderList")
 	public String toOrderList(HttpServletRequest request, Model model){
+		String userOpenId = (String)request.getSession().getAttribute("openId");
+		if(userOpenId==null){
+			return "";
+		}
 		int startIndex = 0;
 		String startIndexStr = request.getParameter("startIndex");
 		if(startIndexStr!=null){
@@ -162,7 +172,7 @@ public class ShopController {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("startIndex", startIndex+"");
 		params.put("endIndex", endIndex+"");
-//		params.put("user", "");
+		params.put("user", userOpenId);
 		List<Order> list = shopService.getOrders(params);
 		model.addAttribute("orderList", list);
 		

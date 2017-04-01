@@ -21,6 +21,7 @@ import com.trajectory.pojo.Order;
 import com.trajectory.pojo.Painting;
 import com.trajectory.service.IShopService;
 import com.trajectory.service.ITestService;
+import com.trajectory.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -31,15 +32,28 @@ public class TestMyBatis {
 	private ITestService testService;
 	@Resource
 	private IShopService shopService;
+	@Resource
+	private IUserService userService;
 	
 	@Test
 	public void test() {
 		System.out.println("test");
 		
-		test1();
+//		test1();
 //		testSelect();
 //		testInsert();
 		
+		testUser();
+	}
+	
+	private void testUser(){
+		Map<String, String> map = userService.selectByOpenId("2");
+		System.out.println("map="+map);
+		if(map==null){
+			System.out.println("null");
+		}else{
+			System.out.println("not null");
+		}
 	}
 	
 	private void testInsert(){
