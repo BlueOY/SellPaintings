@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ page import="com.trajectory.utils.StaticClass" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,46 +53,38 @@
 	}
 	.painting{
 		border: 1px solid #ccc;
-		height: 147px;
+		height: 117px;
 	}
 	.painting .img{
-		width: 145px; height: 145px;
+		width: 145px; height: 115px;
 		background: url('../images/index_p1.png');
 		background-size: 100% 100%;
 		float: left;
 	}
 	.painting .content{
 		float: left;
-		width: calc(60% - 145px); height: 145px; position: relative;
+		width: calc(100% - 145px); height: 115px; position: relative;
 	}
 	.painting .title{
-		font-size: 25px !important;
-		font-weight: 600;
-		padding-top: 15px;
-		padding-left: 25px;
+		float: left;
+		margin: 40px 35px;
+		font-size: 14px !important;
 	}
-	.painting .price{
-		font-size: 25px;
-		float: right;
-		margin-right: 30px;
-		color: #FF6F0F;
+	.painting .time{
+		float: left;
+		padding: 40px 35px;
+		font-size: 14px !important;
 	}
 	.painting .descript{
-		font-size: 20px !important;
+		font-size: 14px !important;
 		margin: 10px 25px;
 
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 3;
 		overflow: hidden;
-	}
-	.painting .author{
-		float: left;
-		margin: 65px 35px;
-	}
-	.painting .time{
-		float: left;
-		padding: 65px 35px;
+		
+		padding: 15px 0px 0px 35px;
 	}
 	/* 横线穿过字体 */
 	.line{
@@ -107,90 +101,83 @@
 	<span id="backBtn"></span>
 	<div class="title">订单详情</div>
 </div>
-<div class="container-fluid" style="overflow-y: scroll;">
+<div class="container-fluid" style="overflow-y: scroll; height:540px;">
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">订单号</label>
-			<input type="text" class="form-control field" readOnly="true" id="id" value="${order.id}" placeholder="订单号">
+			<input type="text" class="form-control field" readOnly="true" id="id" value="${order.id}" >
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">用户</label>
-			<input type="text" class="form-control field" readOnly="true" id="user" value="${order.user}" placeholder="用户">
+			<input type="text" class="form-control field" readOnly="true" id="user" value="${order.user}" >
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">配送方式</label>
-			<input type="text" class="form-control field" readOnly="true" id="distributionMode" value="${order.distributionMode}" placeholder="配送方式">
+			<input type="text" class="form-control field" readOnly="true" id="distributionMode" value="${order.distributionMode}" >
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">支付方式</label>
-			<input type="text" class="form-control field" readOnly="true" id="paymentMode" value="${order.paymentMode}" placeholder="支付方式">
+			<input type="text" class="form-control field" readOnly="true" id="paymentMode" value="${order.paymentMode}" >
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">总金额</label>
-			<input type="text" class="form-control field" readOnly="true" id="totalPrice" value="${order.totalPrice}" placeholder="总金额">
+			<input type="text" class="form-control field" readOnly="true" id="totalPrice" value="${order.totalPrice}" >
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">支付状态</label>
-			<input type="text" class="form-control field" readOnly="true" id="payState" value="${order.payState}" placeholder="支付状态">
+			<input type="text" class="form-control field" readOnly="true" id="payState" value="${order.payState}" >
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">收货地址</label>
-			<input type="text" class="form-control field" readOnly="true" id="address" value="${order.address}" placeholder="收货地址">
+			<input type="text" class="form-control field" readOnly="true" id="address" value="${order.address}" >
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">联系方式</label>
-			<input type="text" class="form-control field" readOnly="true" id="phone" value="${order.phone}" placeholder="联系方式">
+			<input type="text" class="form-control field" readOnly="true" id="phone" value="${order.phone}" >
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<label for="exampleInputEmail1">备注</label>
-			<input type="text" class="form-control field" readOnly="true" id="remarks" value="${order.remarks}" placeholder="备注">
+			<input type="text" class="form-control field" readOnly="true" id="remarks" value="${order.remarks}" >
 		</div>
 		
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">创建时间</label>
-			<input type="text" class="form-control field" readOnly="true" id="createTime" value="${order.createTime}" placeholder="创建时间">
+			<input type="text" class="form-control field" readOnly="true" id="createTime" value="${order.createTime}" >
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">订单状态</label>
-			<input type="text" class="form-control field" readOnly="true" id="state" value="${order.state}" placeholder="订单状态">
+			<input type="text" class="form-control field" readOnly="true" id="state" value="${order.state}" >
 		</div>
 	</div>
 	<div class="painting_heading">画作</div>
+	<c:forEach items="${order.paintings}" var="painting" varStatus="stat">
 	<div class="painting">
 		<div class="img"></div>
 		<div class="content">
-			<div>
-				<span class="title">title</span>
-				<span class="price">
-					<span class="line">￥123</span>
-					￥100
-				</span>
+			<div class="title">
+				<div>${painting.title}</div>
+				<div><span class="line">￥${painting.originalPrice}</span>￥${painting.discountPrice}</div>
 			</div>
-			<div class="descript">描述描述描述描述描述描述描述描述描述描描述描述描述描述描描述描述描述描述描描述描述描述描述描描述描述描述描述描描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</div>
-		</div>
-		<div style="width: 1px; height: 100%; background: #ccc; float: left;"></div>
-		<div class="author">
-			作者
-		</div>
-		<div style="width: 1px; height: 100%; background: #ccc; float: left;"></div>
-		<div class="time">
-			2016-01-01
-		</div>
-		<div style="width: 1px; height: 100%; background: #ccc; float: left;"></div>
-		<div style="margin: 65px auto; text-align: center;">
-			<button>删除</button>
+			<div style="width: 1px; height: 60%; background: #ccc; float: left; margin-top: 25px;"></div>
+			<div class="time">
+				<div>作者：${painting.author}</div>
+				<div>${fn:substring(painting.createTime, 0, 12)}</div>
+			</div>
+			<div style="width: 1px; height: 60%; background: #ccc; float: left; margin-top: 25px;"></div>
+			<div class="descript">${painting.descript}</div>
 		</div>
 	</div>
+	</c:forEach>
 </div>
 <%-- <script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script> --%>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>

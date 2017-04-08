@@ -43,8 +43,22 @@
 		WHERE id=#{id}
 	</update>
 	
+	<update id="recyclePainting" parameterType="String" >
+		UPDATE paintings SET 
+		deleteFlag="false"
+		WHERE id=#{id}
+	</update>
+	
 	<select id="selectPaintings" parameterType="HashMap" resultType="com.trajectory.pojo.Painting">
-		select * from paintings WHERE deleteFlag!="true" or deleteFlag is null
+		select * from paintings
+		<choose>
+			<when test="type!=null and type=='recycle'">
+				WHERE deleteFlag="true"
+			</when>
+			<otherwise>
+				WHERE deleteFlag!="true" or deleteFlag is null
+			</otherwise>
+		</choose>
 		limit ${startIndex}, ${endIndex}
 	</select>
 	

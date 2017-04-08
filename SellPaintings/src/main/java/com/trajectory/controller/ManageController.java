@@ -77,6 +77,12 @@ public class ManageController {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("startIndex", startIndex+"");
 		params.put("endIndex", endIndex+"");
+		
+		String type = request.getParameter("type");
+		if(type!=null){
+			params.put("type", type);
+		}
+		
 		List<Painting> list = manageService.getPaintings(params);
 		String jsonStr = JSON.toJSONString(list);
 		out.write(jsonStr);
@@ -127,6 +133,18 @@ public class ManageController {
 		String id = request.getParameter("id");
 		if(id!=null){
 			manageService.deletePainting(id);
+			out.write("true");
+		}else{
+			out.write("id不能为空");
+		}
+	}
+	@RequestMapping("/recyclePainting")
+	public void recyclePainting(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String id = request.getParameter("id");
+		if(id!=null){
+			manageService.recyclePainting(id);
 			out.write("true");
 		}else{
 			out.write("id不能为空");

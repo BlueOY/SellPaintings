@@ -16,12 +16,34 @@
 	body{
 		background: white;
 	}
-	.title{
+	/* 标题栏的样式 */
+	.top-bar{
+		position: relative;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 10;
+		width: 100%;
+		text-align: center;
+		display: table;
 		background: #2A76DB;
 		color: white;
-		text-align:center;
 		padding: 10px 0px;
 		font-size: 20px;
+	}
+	.title{
+		position: absolute;
+		text-align: center;
+		width: auto;
+		right: 5rem;
+		left: 5rem;
+	}
+	#backBtn{
+		float:left; margin-left: 15px;
+		background:url('<%=path%>/page/manage/images/back.png');
+		background-size: 100% 100%;
+		width: 25px; height: 25px;
+		cursor: pointer;
 	}
 	
 	img{
@@ -30,8 +52,9 @@
 </style>
 </head>
 <body>
-<div class="title">
-	画作管理
+<div class="top-bar">
+	<span id="backBtn"></span>
+	<div class="title">画作回收站</div>
 </div>
 <div>
 	<table id="table" class="easyui-datagrid" title="画作列表" style="width:100%;height:500px"
@@ -53,14 +76,17 @@
 		</thead>
 	</table>
 </div>
-
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");
 	
-	$("#table").datagrid({"url":"<%=path%>/manage/getPaintings"});
+	$("#backBtn").on("click", function(){
+		window.history.go(-1);
+	});
+	
+	$("#table").datagrid({"url":"<%=path%>/manage/getPaintings?type=recycle"});
 	$("#table").datagrid({"loadFilter":pagerFilter});
 	$("#table").datagrid({"toolbar":toolbar});
 	//$("#table").datagrid("loadData", getData());
@@ -79,21 +105,15 @@ function pagerFilter(data){
 	return data;
 }
 var toolbar = [{
-	text:'新增',
-	iconCls:'icon-add',
-	handler:function(){
-		window.location.href = "<%=path%>/manage/toPaintingDetail";
-	}
-},'-',{
-	text:'删除',
-	iconCls:'icon-cut',
+	text:'取消删除',
+	iconCls:'icon-back',
 	handler:function(){
 		var selected = $('#table').datagrid('getSelected');
 		if(selected){
-			if(window.confirm("你确定要删除“"+selected.title+"”这幅画作吗？")){
+			if(window.confirm("你确定要恢复“"+selected.title+"”这幅画作吗？")){
 				//alert('cut'+JSON.stringify(selected));
 				$.ajax({
-					url: "<%=path%>/manage/deletePainting",
+					url: "<%=path%>/manage/recyclePainting",
 					type: "POST",
 					data: {
 						id: selected.id
@@ -116,40 +136,19 @@ var toolbar = [{
 		}
 	}
 },'-',{
-	text:'编辑',
-	iconCls:'icon-save',
+	text:'彻底删除',
+	iconCls:'icon-cancel',
 	handler:function(){
 		var selected = $('#table').datagrid('getSelected');
 		if(selected){
-			window.location.href = "<%=path%>/manage/toPaintingDetail?id="+selected.id;
+			if(window.confirm("你确定要彻底删除“"+selected.title+"”这幅画作吗？")){
+				alert("暂不支持彻底删除画作");
+			}
 		}else{
 			alert("请先选中一行数据");
 		}
 	}
-},'-',{
-	text:'回收站',
-	iconCls:'icon-redo',
-	handler:function(){
-		window.location.href = "<%=path%>/page/manage/painting/paintingRecycle.jsp";
-	}
 }];
-/* function getData(){
-	var rows = [];
-	for(var i=1; i<=800; i++){
-		var amount = Math.floor(Math.random()*1000);
-		var price = Math.floor(Math.random()*1000);
-		rows.push({
-			id: 'Inv No '+i,
-			imageUrl: $.fn.datebox.defaults.formatter(new Date()),
-			title: 'Name '+i,
-			descript: amount,
-			author: price,
-			paintingTime: amount*price,
-			uploadingTime: 'Note '+i
-		});
-	}
-	return rows;
-} */
 </script>
 </body>
 </html>

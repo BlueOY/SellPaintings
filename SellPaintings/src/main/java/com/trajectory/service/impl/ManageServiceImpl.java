@@ -64,4 +64,9 @@ public class ManageServiceImpl implements IManageService{
 		return manageDao.selectUsers(params);
 	}
 
+	@Override
+	public void recyclePainting(String id) {
+		manageDao.recyclePainting(id);
+	}
+
 }

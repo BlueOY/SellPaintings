@@ -58,16 +58,6 @@ a{cursor:default;}
 			用 户 管 理
 		</a>
 	</li>
-	<li>
-		<a class="name list-group-item" >
-			消 息 管 理
-		</a>
-	</li>
-	<li>
-		<a class="name list-group-item" >
-			消 息 管 理
-		</a>
-	</li>
 </ul>
 </div>
 </div>

@@ -149,7 +149,8 @@ public class ShopController {
 	public String toOrderList(HttpServletRequest request, Model model){
 		String userOpenId = (String)request.getSession().getAttribute("openId");
 		if(userOpenId==null){
-			return "";
+			//如果没有用户唯一识别号，跳转到首页
+			return "/shop/index";
 		}
 		int startIndex = 0;
 		String startIndexStr = request.getParameter("startIndex");

@@ -34,8 +34,8 @@
 		<thead>
 			<tr>
 				<th data-options="field:'id',width:60">ID</th>
-				<th data-options="field:'openId',width:60">OpenID</th>
-				<th data-options="field:'createTime',width:150">上传时间</th>
+				<th data-options="field:'openId',width:300">OpenID</th>
+				<th data-options="field:'createTime',width:150">创建时间</th>
 				<th data-options="field:'visitTime',width:150">访问时间</th>
 			</tr>
 		</thead>
