@@ -218,36 +218,80 @@ function callbackUploadImage(fileName){
 }
 
 function submitPainting(fileName){
+	var param = {};
 	var title = $("#title").val();
-	var paintingType = $("#valPaintingType").data("id");
+	if(title==""){
+		alert("请输入标题");
+		return;
+	}else{
+		param.title = title;
+	}
+	var paintingTypeId = $("#valPaintingType").data("id");
+	if(paintingTypeId==""){
+		alert("请选择类型");
+		return;
+	}else{
+		param.paintingTypeId = paintingTypeId;
+	}
 	var author = $("#author").val();
+	if(author==""){
+		alert("请输入作者");
+		return;
+	}else{
+		param.author = author;
+	}
 	var descript = $("#descript").val();
+	if(descript!=""){
+		param.descript = descript;
+	}
 	var originalPrice = $("#originalPrice").val();
+	if(originalPrice==""){
+		alert("请输入售价");
+		return;
+	}else{
+		param.originalPrice = originalPrice;
+	}
 	var discountPrice = $("#discountPrice").val();
+	if(discountPrice!=""){
+		param.discountPrice = discountPrice;
+	}
 	var paintingTime = $("#paintingTime").val();
+	if(paintingTime!=""){
+		param.paintingTime = paintingTime;
+	}
 	var state = $("#state").val();
-	var param = {
-		id: "${painting.id}",
-		title: title,
-		paintingType: paintingType,
-		author: author,
-		descript: descript,
-		originalPrice: originalPrice,
-		discountPrice: discountPrice,
-		paintingTime: paintingTime,
-		state: state
-	};
+	if(state!=""){
+		param.state = state;
+	}else{
+		param.state = "未售出";
+	}
 	if(fileName){
 		param.imageUrl = fileName;
 	}
+	var url;
+	if("${type}"=="add"){
+		//如果是新增
+		url="<%=path%>/manage/addPaintings";
+	}else{
+		//否则是修改
+		param.id="${painting.id}";
+		url="<%=path%>/manage/updatePaintings";
+	}
 	$.ajax({
-		url: "<%=path%>/manage/updatePaintings",
+		url: url,
 		type: "POST",
 		data: param,
 		success: function(data){
-			alert(data);
 			if(data=="true"){
-				window.location.reload();
+				if("${type}"=="add"){
+					alert("添加成功");
+					window.history.go(-2);
+				}else{
+					alert("修改成功");
+					window.location.reload();
+				}
+			}else{
+				alert(data);
 			}
 		}
 	});

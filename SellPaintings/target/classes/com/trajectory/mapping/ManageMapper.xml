@@ -3,8 +3,8 @@
 <mapper namespace="com.trajectory.dao.IManageDao">
 
 	<insert id="insertPainting" parameterType="com.trajectory.pojo.Painting" >
-		INSERT INTO paintings (title,descript,author,paintingTime,createTime,originalPrice,discountPrice,imageUrl) 
-		VALUES (#{title},#{descript},#{author},#{paintingTime},now(),#{originalPrice},#{discountPrice},#{imageUrl})
+		INSERT INTO paintings (title,descript,paintingType,author,paintingTime,createTime,originalPrice,discountPrice,imageUrl,state) 
+		VALUES (#{title},#{descript},#{paintingType.id},#{author},#{paintingTime},now(),#{originalPrice},#{discountPrice},#{imageUrl},#{state})
 	</insert>
 	
 	<insert id="insertPaintingType" parameterType="String" >
@@ -20,11 +20,11 @@
 		<if test="title!=null and title!=''">  
 			title=#{title},
 		</if>
-		<if test="paintingType!=null and paintingType!=''">  
-			paintingType=#{paintingType},
-		</if>
 		<if test="descript!=null and descript!=''">  
 			descript=#{descript},
+		</if>
+		<if test="paintingType!=null and paintingType!=''">  
+			paintingType=#{paintingType.id},
 		</if>
 		<if test="author!=null and author!=''">  
 			author=#{author},
@@ -40,6 +40,9 @@
 		</if>
 		<if test="imageUrl!=null and imageUrl!=''">  
 			imageUrl=#{imageUrl},
+		</if>
+		<if test="state!=null and state!=''">  
+			state=#{state},
 		</if>
 		updateTime=now() 
 		WHERE id=#{id}
@@ -87,7 +90,7 @@
 			</otherwise>
 		</choose>
 		<if test="paintingType!=null and paintingType!=''">  
-			and painting_type=#{paintingType}
+			and paintings.paintingType=#{paintingType}
 		</if>
 		limit ${startIndex}, ${endIndex}
 	</select>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 import com.trajectory.pojo.Order;
 import com.trajectory.pojo.Painting;
+import com.trajectory.pojo.PaintingType;
 import com.trajectory.pojo.User;
 import com.trajectory.service.IManageService;
 
@@ -118,16 +119,23 @@ public class ManageController {
 	}
 	
 	@RequestMapping("/addPaintings")
-	public void addPaintings(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void addPaintings(HttpServletRequest request, HttpServletResponse response, Painting painting) throws IOException{
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		Painting painting = new Painting();
-		painting.setTitle(request.getParameter("title"));
-		painting.setDescript(request.getParameter("descript"));
-		painting.setAuthor(request.getParameter("author"));
-		painting.setPaintingTime(request.getParameter("paintingTime"));
-		painting.setImageUrl(request.getParameter("imageUrl"));
+//		Painting painting = new Painting();
+//		painting.setTitle(request.getParameter("title"));
+//		painting.setDescript(request.getParameter("descript"));
+//		painting.setAuthor(request.getParameter("author"));
+//		painting.setPaintingTime(request.getParameter("paintingTime"));
+//		painting.setImageUrl(request.getParameter("imageUrl"));
+		
+		String paintingTypeId = request.getParameter("paintingTypeId");
+		if(paintingTypeId!=null){
+			PaintingType paintingType = new PaintingType();
+			paintingType.setId(Integer.parseInt(paintingTypeId));
+			painting.setPaintingType(paintingType);
+		}
 		manageService.addPainting(painting);
 		
 		out.write("true");
@@ -150,6 +158,13 @@ public class ManageController {
 	public void updatePaintings(HttpServletRequest request, HttpServletResponse response, Painting painting) throws IOException{
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		
+		String paintingTypeId = request.getParameter("paintingTypeId");
+		if(paintingTypeId!=null){
+			PaintingType paintingType = new PaintingType();
+			paintingType.setId(Integer.parseInt(paintingTypeId));
+			painting.setPaintingType(paintingType);
+		}
 		manageService.updatePainting(painting);
 		out.write("true");
 		
