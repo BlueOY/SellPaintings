@@ -7,13 +7,21 @@
 		VALUES (#{title},#{descript},#{author},#{paintingTime},now(),#{originalPrice},#{discountPrice},#{imageUrl})
 	</insert>
 	
-	<select id="selectPaintingDetail" parameterType="String" resultType="com.trajectory.pojo.Painting">
-		select * from paintings where id=#{id}
+	<insert id="insertPaintingType" parameterType="String" >
+		INSERT INTO painting_type (name) 
+		VALUES (#{name})
+	</insert>
+	
+	<select id="selectPaintingDetail" parameterType="String" resultMap="paintingResultMap" resultType="com.trajectory.pojo.Painting">
+		select paintings.*, painting_type.*, painting_type.id as tid from paintings, painting_type where paintings.id=#{id} and painting_type.id = paintings.paintingType
 	</select>
 	<update id="updatePainting" parameterType="com.trajectory.pojo.Painting" >
 		UPDATE paintings SET 
 		<if test="title!=null and title!=''">  
 			title=#{title},
+		</if>
+		<if test="paintingType!=null and paintingType!=''">  
+			paintingType=#{paintingType},
 		</if>
 		<if test="descript!=null and descript!=''">  
 			descript=#{descript},
@@ -49,17 +57,43 @@
 		WHERE id=#{id}
 	</update>
 	
-	<select id="selectPaintings" parameterType="HashMap" resultType="com.trajectory.pojo.Painting">
-		select * from paintings
+	<resultMap id="paintingResultMap" type="com.trajectory.pojo.Painting">
+		<id property="id" column="id" javaType="int" jdbcType="INTEGER" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR"/>
+		<result property="descript" column="descript" javaType="string" jdbcType="VARCHAR"/>
+		<result property="author" column="author" javaType="string" jdbcType="VARCHAR"/>
+		<result property="paintingTime" column="paintingTime" javaType="string" jdbcType="VARCHAR"/>
+		<result property="originalPrice" column="originalPrice" javaType="float" jdbcType="DECIMAL"/>
+		<result property="discountPrice" column="discountPrice" javaType="float" jdbcType="DECIMAL"/>
+		<result property="imageUrl" column="imageUrl" javaType="string" jdbcType="VARCHAR"/>
+		<result property="state" column="state" javaType="string" jdbcType="VARCHAR"/>
+		<result property="createTime" column="createTime" javaType="string" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="updateTime" javaType="string" jdbcType="VARCHAR"/>
+		<association property="paintingType" column="paintingType" javaType="com.trajectory.pojo.PaintingType">
+			<id property="id" column="tid" />
+			<result property="name" column="name" />
+		</association>
+	</resultMap>
+	
+	<select id="selectPaintings" parameterType="HashMap" resultMap="paintingResultMap" resultType="com.trajectory.pojo.Painting">
+		select paintings.*, painting_type.*, painting_type.id as tid from paintings,painting_type
+		WHERE painting_type.id = paintings.paintingType
 		<choose>
 			<when test="type!=null and type=='recycle'">
-				WHERE deleteFlag="true"
+				and paintings.deleteFlag="true"
 			</when>
 			<otherwise>
-				WHERE deleteFlag!="true" or deleteFlag is null
+				and (paintings.deleteFlag!="true" or paintings.deleteFlag is null)
 			</otherwise>
 		</choose>
+		<if test="paintingType!=null and paintingType!=''">  
+			and painting_type=#{paintingType}
+		</if>
 		limit ${startIndex}, ${endIndex}
+	</select>
+	
+	<select id="selectPaintingType" resultType="HashMap">
+		select * from painting_type
 	</select>
 	
 	<resultMap id="orderResultMap" type="com.trajectory.pojo.Order">

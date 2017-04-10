@@ -82,12 +82,39 @@ public class ManageController {
 		if(type!=null){
 			params.put("type", type);
 		}
+		String paintingType = request.getParameter("paintingType");
+		if(paintingType!=null && !"all".equals(paintingType)){
+			params.put("paintingType", paintingType);
+		}
 		
 		List<Painting> list = manageService.getPaintings(params);
 		String jsonStr = JSON.toJSONString(list);
 		out.write(jsonStr);
 		
 		System.out.println("jsonStr="+jsonStr);
+	}
+	
+	@RequestMapping("/getPaintingType")
+	public void getPaintingType(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		List<Map<String, String>> list = manageService.getPaintingType();
+		String jsonStr = JSON.toJSONString(list);
+		out.write(jsonStr);
+		
+		System.out.println("paintingType="+jsonStr);
+	}
+	
+	@RequestMapping("/addPaintingType")
+	public void addPaintingType(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		String name = request.getParameter("name");
+		manageService.addPaintingType(name);
+		
+		out.write("true");
 	}
 	
 	@RequestMapping("/addPaintings")
@@ -112,6 +139,8 @@ public class ManageController {
 		if(id!=null){
 			Painting painting = manageService.selectPaintingDetail(id);
 			model.addAttribute("painting", painting);
+			
+			System.out.println("paintingDetail="+JSON.toJSONString(painting));
 		}else{
 			model.addAttribute("type", "add");
 		}
@@ -121,7 +150,7 @@ public class ManageController {
 	public void updatePaintings(HttpServletRequest request, HttpServletResponse response, Painting painting) throws IOException{
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		manageService. updatePainting(painting);
+		manageService.updatePainting(painting);
 		out.write("true");
 		
 		System.out.println("painting="+JSON.toJSONString(painting));

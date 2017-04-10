@@ -7,6 +7,7 @@ public class Painting implements java.io.Serializable{
 	private String title;
 	private String descript;
 	private String author;
+	private PaintingType paintingType;
 	
 	private String paintingTime;
 	
@@ -42,6 +43,13 @@ public class Painting implements java.io.Serializable{
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public PaintingType getPaintingType() {
+		return paintingType;
+	}
+	public void setPaintingType(PaintingType paintingType) {
+		this.paintingType = paintingType;
 	}
 	
 	public String getPaintingTime() {

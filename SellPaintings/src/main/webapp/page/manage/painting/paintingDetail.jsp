@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>bootstrap/bootstrap_diy.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>bootstrap/bootstrap.css">
 <style type="text/css">
 	body{
 		background: white;
@@ -68,37 +68,53 @@
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">标题</label>
-			<input type="text" class="form-control field" readOnly="true" id="title" value="${painting.title}" placeholder="标题">
+			<input type="text" class="form-control field" readOnly="true" id="title" value="${painting.title}">
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
+			<label for="exampleInputPassword1">画作类型</label>
+			<div>
+			<fieldset disabled>
+				<div class="btn-group disabled">
+				  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span id="valPaintingType" data-id="${painting.paintingType!=null?painting.paintingType.id:''}">${painting.paintingType!=null?painting.paintingType.name:'请选择'}</span> <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" id="paintingType">
+				  </ul>
+				</div>
+			</fieldset>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">作者</label>
-			<input type="text" class="form-control field" readOnly="true" id="author" value="${painting.author}" placeholder="作者">
+			<input type="text" class="form-control field" readOnly="true" id="author" value="${painting.author}">
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<label for="exampleInputEmail1">创作时间</label>
+			<input type="text" class="form-control field" readOnly="true" id="paintingTime" value="${painting.paintingTime}">
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<label for="exampleInputPassword1">描述</label>
-			<input type="text" class="form-control field" readOnly="true" id="descript" value="${painting.descript}" placeholder="描述">
+			<input type="text" class="form-control field" readOnly="true" id="descript" value="${painting.descript}">
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputEmail1">售价</label>
-			<input type="text" class="form-control field" readOnly="true" id="originalPrice" value="${painting.originalPrice}" placeholder="售价">
+			<input type="text" class="form-control field" readOnly="true" id="originalPrice" value="${painting.originalPrice}">
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">折扣价</label>
-			<input type="text" class="form-control field" readOnly="true" id="discountPrice" value="${painting.discountPrice}" placeholder="折扣价">
+			<input type="text" class="form-control field" readOnly="true" id="discountPrice" value="${painting.discountPrice}">
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6">
-			<label for="exampleInputEmail1">创作时间</label>
-			<input type="text" class="form-control field" readOnly="true" id="paintingTime" value="${painting.paintingTime}" placeholder="创作时间">
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6">
 			<label for="exampleInputPassword1">状态</label>
-			<input type="text" class="form-control field" readOnly="true" id="state" value="${painting.state}" placeholder="状态">
+			<input type="text" class="form-control field" readOnly="true" id="state" value="${painting.state}">
 		</div>
 	</div>
 	<div class="row edit">
@@ -130,6 +146,7 @@
 	</div>
 </div>
 <script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=basePath%>bootstrap/bootstrap.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");
@@ -171,6 +188,29 @@ $(function(){
 		//如果是新增，则初始化可编辑状态
 		edit();
 	}
+	
+	//初始化下拉列表
+	$.ajax({
+		url: "<%=path%>/manage/getPaintingType",
+		type: "POST",
+		success: function(data){
+			var dataObj = $.parseJSON(data);
+			for(var i=0;i<dataObj.length;i++){
+				$("#paintingType").append("<li><a href='#' data-id="+dataObj[i].id+">"+dataObj[i].name+"</a></li>");
+			}
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			alert("请求失败："+textStatus);
+			alert(errorThrown+" "+XMLHttpRequest.status);
+		}
+	});
+	$("#paintingType").on("click", "li", function(){
+		var id = $(this).find("a").data("id");
+		$("#valPaintingType").data("id", id);
+		var text = $(this).find("a").text();
+		$("#valPaintingType").text(text);
+	});
+	
 });
 
 function callbackUploadImage(fileName){
@@ -179,6 +219,7 @@ function callbackUploadImage(fileName){
 
 function submitPainting(fileName){
 	var title = $("#title").val();
+	var paintingType = $("#valPaintingType").data("id");
 	var author = $("#author").val();
 	var descript = $("#descript").val();
 	var originalPrice = $("#originalPrice").val();
@@ -188,6 +229,7 @@ function submitPainting(fileName){
 	var param = {
 		id: "${painting.id}",
 		title: title,
+		paintingType: paintingType,
 		author: author,
 		descript: descript,
 		originalPrice: originalPrice,
@@ -215,6 +257,7 @@ function edit(){
 	$(".field").attr("readonly",false);
 	$(".submit").show();
 	$(".edit").hide();
+	$("fieldset").attr("disabled", false);
 }
 
 </script>

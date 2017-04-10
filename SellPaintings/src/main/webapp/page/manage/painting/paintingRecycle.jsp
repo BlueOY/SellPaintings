@@ -65,6 +65,7 @@
 				<th data-options="field:'imageUrl',width:60">图片</th>
 				<th data-options="field:'title',width:80">标题</th>
 				<th data-options="field:'descript',width:80">描述</th>
+				<th data-options="field:'paintingType',width:60">类型</th>
 				<th data-options="field:'author',width:60">作者</th>
 				<th data-options="field:'paintingTime',width:150">创作时间</th>
 				<th data-options="field:'originalPrice',width:50">售价</th>
@@ -106,7 +107,7 @@ function pagerFilter(data){
 }
 var toolbar = [{
 	text:'取消删除',
-	iconCls:'icon-back',
+	iconCls:'icon-undo',
 	handler:function(){
 		var selected = $('#table').datagrid('getSelected');
 		if(selected){

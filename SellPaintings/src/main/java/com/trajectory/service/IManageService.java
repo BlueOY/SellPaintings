@@ -19,5 +19,7 @@ public interface IManageService {
 	public Order selectOrderDetail(String id);
 	public List<User> selectUsers(Map<String, String> params);
 	public void recyclePainting(String id);
+	public List<Map<String, String>> getPaintingType();
+	public void addPaintingType(String name);
 
 }

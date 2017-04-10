@@ -69,4 +69,14 @@ public class ManageServiceImpl implements IManageService{
 		manageDao.recyclePainting(id);
 	}
 
+	@Override
+	public List<Map<String, String>> getPaintingType() {
+		return manageDao.selectPaintingType();
+	}
+
+	@Override
+	public void addPaintingType(String name) {
+		manageDao.insertPaintingType(name);
+	}
+
 }
