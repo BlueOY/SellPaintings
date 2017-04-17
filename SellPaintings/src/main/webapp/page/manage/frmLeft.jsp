@@ -9,7 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../../bootstrap/bootstrap_diy.css">
+<link rel="stylesheet" type="text/css" href="../../lib/bootstrap/bootstrap_diy.css">
+<jsp:include page='../../lib/swiper.jsp'></jsp:include>
 <style type="text/css">
 body,html{
 	background-color: #3d4549;
@@ -61,7 +62,7 @@ a{cursor:default;}
 </ul>
 </div>
 </div>
-<script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=path%>/script/jquery-1.11.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");

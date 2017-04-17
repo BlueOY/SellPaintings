@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<jsp:include page='../../lib/swiper.jsp'></jsp:include>
 	<style type="text/css">
 		body{
 			max-width: 1024px;
@@ -46,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		.showlist img{
 			width: 100%;
+			height: 150px;
 		}
 		.showlist .title{
 			text-align: left;
@@ -69,6 +71,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			-khtml-border-radius:3px;    /*仅safari，chrome支持，实现圆角效果*/
 			border-radius:3px;    /*仅firefox，opera，safari，chrome支持，实现圆角效果*/
 		}
+		/* 图片轮播的样式 */
+		.swiper-container {
+	        width: 100%;
+	        height: 100%;
+	        margin-left: auto;
+	        margin-right: auto;
+	    }
+	    .swiper-slide {
+	        text-align: center;
+	        font-size: 18px;
+	        background: #fff;
+	
+	        /* Center slide text vertically */
+	        display: -webkit-box;
+	        display: -ms-flexbox;
+	        display: -webkit-flex;
+	        display: flex;
+	        -webkit-box-pack: center;
+	        -ms-flex-pack: center;
+	        -webkit-justify-content: center;
+	        justify-content: center;
+	        -webkit-box-align: center;
+	        -ms-flex-align: center;
+	        -webkit-align-items: center;
+	        align-items: center;
+	    }
 	</style>
   </head>
   
@@ -77,9 +105,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="margin-top: 40px; font-size: 12px; font-weight: 600;" id="toOrderList">查看我的订单</div>
   </div>
   <div>
+  	<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            <div class="swiper-slide">Slide 10</div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
 	<img src="images/index_picture.jpg" style="width: 100%;">
 	<div style="text-align: center; font-size: 12px; font-weight: 600; margin: 25px;">
-		<p>名师画作，在线预订</p>
+		<p>画作在线预订</p>
 		<p>配送范围：长沙市</p>
 		<p>配送时间：周一至周五：18:00-22:00</p>
 		<p>周六周日：9:00-18:00</p>
@@ -121,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
   </div>
-	<script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="<%=path%>/script/jquery-1.11.2.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$.ajax({

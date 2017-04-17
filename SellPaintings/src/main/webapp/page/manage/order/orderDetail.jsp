@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<%=path%>/bootstrap/bootstrap_diy.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/lib/bootstrap/bootstrap.css">
 <style type="text/css">
 	body{
 		background: white;
@@ -179,9 +179,7 @@
 	</div>
 	</c:forEach>
 </div>
-<%-- <script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script> --%>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=path%>/script/jquery-1.11.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");

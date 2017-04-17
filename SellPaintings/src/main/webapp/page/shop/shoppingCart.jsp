@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 <!-- 适应手机屏幕的meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>css/aui.2.0.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/aui.2.0.css">
 	<style type="text/css">
 		.title{
 			font-size: 18px !important;
@@ -229,7 +229,7 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=path%>/script/jquery-1.11.2.js"></script>
 <script type="text/javascript">
 	$(function(){
 		initView();

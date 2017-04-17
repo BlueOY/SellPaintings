@@ -48,7 +48,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=path%>/script/jquery-1.11.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");

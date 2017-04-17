@@ -9,8 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/icon.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/lib/easyui/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/lib/easyui/icon.css">
 <style type="text/css">
 	body{
 		background: white;
@@ -21,8 +21,8 @@
 
 
 <%-- <script type="text/javascript" src="<%=basePath%>script/jquery-1.11.2.js"></script> --%>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/easyui/jquery.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	//alert("jquery");
